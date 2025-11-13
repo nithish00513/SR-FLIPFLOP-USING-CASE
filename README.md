@@ -1,4 +1,3 @@
-
 # SR-FLIPFLOP-USING-CASE
 
 **AIM:**
@@ -34,40 +33,44 @@ By using three variable K-Map, we can get the simplified expression for next sta
 The maximum possible groupings of adjacent ones are already shown in the figure. Therefore, the simplified expression for next state Qt+1t+1 is Q(t+1)=S+R′Q(t)Q(t+1)=S+R′Q(t)
 
 **Procedure**
-
-/* write all the steps invloved */
-STEP 1:Type the program in Quartus software.
-
-STEP 2:Compile and run the program.
-
-STEP 3:Generate the RTL schematic and save the logic diagram.
-
-STEP 4:Create nodes for inputs and outputs to generate the timing diagram.
-
-STEP 5:For different input combinations generate the timing diagram.
+1. Define Inputs/Outputs: Inputs: S (Set), R (Reset), c1k (clock); Outputs: Q, Qbar.
+2. Initialization: Set Q = 0 and Qbar = 1 at the start of the simulation.
+3. SR Flip-Flop Logic: On posedge c1k, compute Q = S | (~R & Q).
+4. Complementary Output: Update Qbar = R | (~S & Qbar) to maintain SR Flip-Flop behavior.
+5. Testbench: Test with combinations of S, R, and c1k to ensure proper Set-Reset functionality.
 
 **PROGRAM**
+```
 
-/* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by: PRIYAADARSHINI K RegisterNumber:212223240126
+/* Program for flipflops and verify its truth table in quartus using Verilog programming. 
+Developed by: NITHISH KUMAR S 
+RegisterNumber: 212224230190
 */
 ```
-module ex6sr(s,r,clk,q,qbar);
-input s,r,clk;
-output q,qbar;
-wire w1,w2;
-nand(w1,s,clk);
-nand(w2,r,clk);
-nand(q,w1,qbar);
-nand(qbar,q,w2);
+```
+module exp6(S,R,c1k,Q,Qbar);
+input S,R,c1k;
+output reg Q;
+output reg Qbar;
+initial Q=0;
+initial Qbar=1;
+always @(posedge c1k)
+begin
+Q=S|((~R)&Q);
+Qbar=R|((~S)&(Qbar));
+end
 endmodule
+
 ```
 
-
 **RTL LOGIC FOR FLIPFLOPS**
-![ex6rtl](https://github.com/user-attachments/assets/e94da74b-55b4-4746-9485-56c1d497171f)
+![image](https://github.com/user-attachments/assets/7f2123ea-f1ee-40fa-acba-5daf01313ec8)
+
 
 **TIMING DIGRAMS FOR FLIP FLOPS**
-![ex6w](https://github.com/user-attachments/assets/76fbbede-9831-4c34-8e4e-b9a3d7ebcf11)
+![image](https://github.com/user-attachments/assets/3ada51b7-62e4-4a46-b149-239451bac46f)
+
 
 **RESULTS**
-Thus the program to implement a SR flipflop using verilog and validating their functionality using their functional tables is successfully completed.
+
+Thus the SR flipflop is implemented and verified.
